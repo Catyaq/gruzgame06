@@ -13,10 +13,9 @@ import {
   useWaitForTransactionReceipt,
 } from "wagmi";
 import {
-  getGruzGame06CheckinPriceEth,
+  GRUZGAME06_CHECKIN_PRICE_ETH,
   getGruzGame06ContractAddress,
   gruzGame06OnchainAbi,
-  isGruzGame06ContractConfigured,
   withGruzGame06BuilderCodeDataSuffix,
 } from "@/lib/contracts/gruzgame06Onchain";
 import styles from "./page.module.css";
@@ -93,8 +92,6 @@ export default function Home() {
   const { context } = useMiniApp();
   const { address, isConnected, chainId } = useAccount();
   const contractAddress = getGruzGame06ContractAddress();
-  const checkinPriceEth = getGruzGame06CheckinPriceEth();
-  const contractReady = isGruzGame06ContractConfigured();
 
   const [view, setView] = useState<View>("menu");
   const [state, setState] = useState<GameState | null>(null);
@@ -292,16 +289,8 @@ export default function Home() {
     }
   };
 
-  const ensureContractReady = () => {
-    if (!contractReady) {
-      setError("Укажите NEXT_PUBLIC_GRUZGAME06_CONTRACT_ADDRESS (после деплоя контракта).");
-      return false;
-    }
-    return true;
-  };
-
   const handleSyncTaps = async () => {
-    if (!address || !isCorrectChain || pendingTaps <= 0 || !ensureContractReady()) return;
+    if (!address || !isCorrectChain || pendingTaps <= 0) return;
     setError("");
     try {
       setIsSubmittingTap(true);
@@ -325,7 +314,7 @@ export default function Home() {
   };
 
   const handleCheckin = async () => {
-    if (!address || !state?.canCheckinNow || !ensureContractReady()) return;
+    if (!address || !state?.canCheckinNow) return;
     setError("");
     try {
       setIsSubmittingCheckin(true);
@@ -338,7 +327,7 @@ export default function Home() {
       await sendTransactionAsync({
         to: contractAddress,
         data,
-        value: parseEther(checkinPriceEth),
+        value: parseEther(GRUZGAME06_CHECKIN_PRICE_ETH),
         chainId: base.id,
       });
     } catch (err) {
@@ -360,12 +349,6 @@ export default function Home() {
       <section className={styles.card}>
         <h1 className={styles.title}>アニメ ТЯНКА TAP</h1>
         <p className={styles.subtitle}>BASE · ONCHAIN TAPPER</p>
-
-        {!contractReady && (
-          <p className={styles.warning}>
-            Контракт не задан. После деплоя добавьте NEXT_PUBLIC_GRUZGAME06_CONTRACT_ADDRESS в Vercel / .env.local.
-          </p>
-        )}
 
         {!isConnected || !address ? (
           <div className={styles.walletPanel}>
@@ -474,7 +457,7 @@ export default function Home() {
               className={styles.neonButton}
               type="button"
               onClick={() => void handleSyncTaps()}
-              disabled={pendingTaps <= 0 || !isCorrectChain || isBusy || !contractReady}
+              disabled={pendingTaps <= 0 || !isCorrectChain || isBusy}
             >
               {isSubmittingTap || isWritePending || isTxMining
                 ? "Транзакция..."
@@ -488,13 +471,13 @@ export default function Home() {
             <p className={styles.checkinText}>
               Следующее окно check-in: <strong>каждые 2 минуты</strong>
             </p>
-            <p className={styles.hint}>Стоимость check-in: {checkinPriceEth} ETH</p>
+            <p className={styles.hint}>Стоимость check-in: {GRUZGAME06_CHECKIN_PRICE_ETH} ETH</p>
             <p className={styles.timer}>{countdown}</p>
             <button
               className={styles.neonButton}
               type="button"
               onClick={() => void handleCheckin()}
-              disabled={!state?.canCheckinNow || isBusy || !address || !isCorrectChain || !contractReady}
+              disabled={!state?.canCheckinNow || isBusy || !address || !isCorrectChain}
             >
               {isBusy
                 ? "Транзакция..."

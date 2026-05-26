@@ -1,6 +1,5 @@
 /**
- * Public site URL for Farcaster manifest and auth.
- * On Vercel: set NEXT_PUBLIC_URL in production, or rely on VERCEL_* auto vars.
+ * Public site URL — no manual Vercel env. Uses VERCEL_* automatically.
  */
 export function getSiteUrl(): string {
   if (process.env.NEXT_PUBLIC_URL) {

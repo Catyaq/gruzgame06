@@ -1,3 +1,4 @@
+import { APP_DISPLAY_NAME } from "./lib/appConfig";
 import { getSiteUrl } from "./lib/siteUrl";
 
 const ROOT_URL = getSiteUrl();
@@ -10,8 +11,8 @@ export const farcasterConfig = {
   },
   miniapp: {
     version: "1",
-    name: "Anime Tyanka Tap",
-    subtitle: "Anime Tap Game",
+    name: APP_DISPLAY_NAME,
+    subtitle: `${APP_DISPLAY_NAME} — gruzgame06`,
     description:
       "Tap the anime girl, sync taps onchain, check in every 2 minutes, and climb the leaderboard on Base.",
     imageUrl: `${ROOT_URL}/anime-hero.svg`,
@@ -26,7 +27,7 @@ export const farcasterConfig = {
     tags: ["game", "tap", "anime", "leaderboard", "onchain", "base"],
     heroImageUrl: `${ROOT_URL}/anime-hero.svg`,
     tagline: "Tap. Check in. Level up.",
-    ogTitle: "Anime Tyanka Tap",
+    ogTitle: APP_DISPLAY_NAME,
     ogDescription: "Anime-style tap game for Base App.",
     ogImageUrl: `${ROOT_URL}/anime-hero.svg`,
     castShareUrl: ROOT_URL,

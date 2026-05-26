@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Source_Code_Pro } from "next/font/google";
 import { SafeArea } from "./components/SafeArea";
+import { BASE_APP_ID } from "@/lib/appConfig";
 import { farcasterConfig } from "../farcaster.config";
 import { Providers } from "./providers";
 import "./globals.css";
@@ -14,9 +15,9 @@ export async function generateMetadata(): Promise<Metadata> {
         version: farcasterConfig.miniapp.version,
         imageUrl: farcasterConfig.miniapp.heroImageUrl,
         button: {
-          title: "Open Anime Tyanka Tap",
+          title: farcasterConfig.miniapp.buttonTitle,
           action: {
-            name: "Launch Game",
+            name: "Launch",
             type: "launch_frame",
           },
         },
@@ -42,6 +43,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru" suppressHydrationWarning>
+      <head>{BASE_APP_ID ? <meta name="base:app_id" content={BASE_APP_ID} /> : null}</head>
       <body className={`${inter.variable} ${sourceCodePro.variable}`} suppressHydrationWarning>
         <Providers>
           <SafeArea>{children}</SafeArea>

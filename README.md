@@ -1,42 +1,35 @@
-# gruzgame06 — Anime Tyanka Tap (Base Mini App)
+# Gruz Game 06 — Anime Tyanka Tap
 
-Onchain tap game on **Base Mainnet**: tap the anime girl, batch-sync taps, check in every 2 minutes, local leaderboard.
+Base App mini app for **kitasit** (Next.js + wagmi + Farcaster Mini App SDK).
 
-## Stack
+## Config (hardcoded, no Vercel env)
 
-- Next.js 15 + Wagmi + Viem + `@base-org/account`
-- Farcaster Mini App SDK
-- Smart contract: `contracts/GruzGame06Onchain.sol`
+| Item | Value |
+|------|--------|
+| Base App ID | `lib/appConfig.ts` → `<meta name="base:app_id">` (set when registered) |
+| Contract (Base Mainnet) | [0x6812f90858cB1989d6356CF1a08Bb4497e5A50a3](https://basescan.org/address/0x6812f90858cB1989d6356CF1a08Bb4497e5A50a3) |
+| Builder code | `lib/contracts/gruzgame06Onchain.ts` (add when ready) |
+| Builder calldata suffix | same file |
 
-## Environment (Vercel / local)
+All onchain settings: `lib/contracts/gruzgame06Onchain.ts`
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `NEXT_PUBLIC_URL` | Optional on Vercel | Override public URL; if unset, `VERCEL_PROJECT_PRODUCTION_URL` / `VERCEL_URL` are used |
-| `NEXT_PUBLIC_GRUZGAME06_CONTRACT_ADDRESS` | **Yes (prod)** | Deployed contract on Base |
-| `NEXT_PUBLIC_GRUZGAME06_BUILDER_CODE_DATA_SUFFIX` | When using Builder Codes | Hex suffix appended to tx `data` (with `0x`) |
-| `NEXT_PUBLIC_GRUZGAME06_BUILDER_CODE` | Optional | Human-readable builder code label |
-| `NEXT_PUBLIC_GRUZGAME06_CHECKIN_PRICE_ETH` | Optional | Default `0.00001` |
+**Vercel:** no dashboard env required. Public URL is taken from `VERCEL_PROJECT_PRODUCTION_URL` / `VERCEL_URL` via `lib/siteUrl.ts`.
 
-Copy `.example.env` → `.env.local` for local dev.
-
-## Calldata + Builder suffix
-
-`tap` and `checkIn` transactions use `encodeFunctionData(...)` and `withGruzGame06BuilderCodeDataSuffix()` so the final `data` is **function calldata + Builder Code encoded suffix** when the suffix env is set.
-
-## Develop
+## Run
 
 ```bash
 npm install
 npm run dev
 ```
 
-## Deploy (Vercel)
+Optional local URL override: `.env.local` with `NEXT_PUBLIC_URL=http://localhost:3000`
 
-1. Set env vars in the Vercel project (especially contract address and builder suffix).
-2. `NEXT_PUBLIC_URL` can be your custom domain; otherwise production URL is auto-detected.
+## Verify builder calldata
 
-## Contract (Remix)
+```bash
+node scripts/verify-calldata.mjs
+```
 
-**Deployed contract (Base Mainnet):** `0x6812f90858cB1989d6356CF1a08Bb4497e5A50a3`  
-Set the same value as `NEXT_PUBLIC_GRUZGAME06_CONTRACT_ADDRESS` in Vercel (and `.env.local` for local dev).
+## GitHub
+
+Repo: https://github.com/kitasit/gruzgame06

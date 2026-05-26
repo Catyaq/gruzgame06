@@ -3,7 +3,7 @@ pragma solidity ^0.8.24;
 
 /// @title GruzGame06Onchain — tap + periodic check-in game on Base
 /// @notice Deployed on Base Mainnet: 0x6812f90858cB1989d6356CF1a08Bb4497e5A50a3
-/// @notice Env: NEXT_PUBLIC_GRUZGAME06_CONTRACT_ADDRESS
+/// @notice App config: lib/contracts/gruzgame06Onchain.ts
 contract GruzGame06Onchain {
     uint256 public constant CHECKIN_INTERVAL = 2 minutes;
     uint256 public constant CHECKIN_PRICE = 0.00001 ether;
