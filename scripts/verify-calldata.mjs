@@ -3,8 +3,8 @@
  */
 import { encodeFunctionData } from "viem";
 
-const BUILDER_CODE = "";
-const BUILDER_SUFFIX = "0x";
+const BUILDER_CODE = "bc_nwphoihs";
+const BUILDER_SUFFIX = "0x62635f6e7770686f6968730b0080218021802180218021802180218021";
 
 const abi = [
   {
@@ -21,12 +21,6 @@ const data = encodeFunctionData({
   functionName: "tap",
   args: [1n],
 });
-
-if (!BUILDER_SUFFIX || BUILDER_SUFFIX === "0x" || BUILDER_SUFFIX.length <= 2) {
-  console.log("builder code:", BUILDER_CODE || "(not set)");
-  console.log("tap calldata (no suffix):", data);
-  process.exit(0);
-}
 
 const suffix = BUILDER_SUFFIX.slice(2);
 const full = `${data}${suffix}`;

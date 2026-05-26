@@ -8,14 +8,14 @@ Base App mini app for **kitasit** (Next.js + wagmi + Farcaster Mini App SDK).
 |------|--------|
 | Base App ID | `6a15662a5ef088574244919e` → `lib/appConfig.ts` + `<meta name="base:app_id">` |
 | Contract (Base Mainnet) | [0x6812f90858cB1989d6356CF1a08Bb4497e5A50a3](https://basescan.org/address/0x6812f90858cB1989d6356CF1a08Bb4497e5A50a3) |
-| Builder code | `lib/contracts/gruzgame06Onchain.ts` (add when ready) |
-| Builder calldata suffix | same file |
+| Builder code | `bc_nwphoihs` |
+| Builder calldata suffix | `0x62635f6e7770686f6968730b0080218021802180218021802180218021` |
 
 All onchain settings: `lib/contracts/gruzgame06Onchain.ts`
 
 **Vercel:** no dashboard env required. Public URL is taken from `VERCEL_PROJECT_PRODUCTION_URL` / `VERCEL_URL` via `lib/siteUrl.ts`.
 
-**Wallets (browser):** MetaMask, Rabby, WalletConnect (`lib/wagmiConfigs.ts`).  
+**Wallets (browser):** Rabby, MetaMask, WalletConnect, Base passkey (`lib/wagmiConfigs.ts`).  
 **Base App:** auto-connect via `farcasterMiniApp` + `WalletAutoConnect.tsx`.
 
 ## Run

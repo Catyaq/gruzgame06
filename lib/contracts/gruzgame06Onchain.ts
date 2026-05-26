@@ -4,9 +4,10 @@ export const GRUZGAME06_CONTRACT_ADDRESS: `0x${string}` =
 
 export const GRUZGAME06_CHECKIN_PRICE_ETH = "0.00001";
 
-/** base.dev → Builder Codes — set when ready */
-export const GRUZGAME06_BUILDER_CODE = "";
-export const GRUZGAME06_BUILDER_CODE_DATA_SUFFIX: `0x${string}` = "0x";
+/** base.dev → Builder Codes (gruzgame06 / kitasit) */
+export const GRUZGAME06_BUILDER_CODE = "bc_nwphoihs";
+export const GRUZGAME06_BUILDER_CODE_DATA_SUFFIX: `0x${string}` =
+  "0x62635f6e7770686f6968730b0080218021802180218021802180218021";
 
 export const gruzGame06OnchainAbi = [
   {

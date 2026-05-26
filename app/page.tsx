@@ -18,6 +18,7 @@ import {
   gruzGame06OnchainAbi,
   withGruzGame06BuilderCodeDataSuffix,
 } from "@/lib/contracts/gruzgame06Onchain";
+import { connectorLabel, pickWebWalletConnectors } from "@/lib/walletConnectors";
 import styles from "./page.module.css";
 
 type View = "menu" | "tap" | "leaderboard" | "checkin";
@@ -123,29 +124,14 @@ export default function Home() {
     if (isMiniAppHost) {
       return [];
     }
-
-    return connectors.filter((connector) => {
-      const connectorName = connector.name.toLowerCase();
-      return (
-        connector.id === "walletConnect" ||
-        connectorName.includes("rabby") ||
-        connectorName.includes("metamask")
-      );
-    });
+    return pickWebWalletConnectors(connectors);
   }, [connectors, isMiniAppHost]);
 
   const preferredConnector = useMemo(() => {
     if (isMiniAppHost) {
       return connectors.find((connector) => connector.id === "farcaster") ?? null;
     }
-
-    return (
-      walletConnectors.find((c) => c.name.toLowerCase().includes("rabby")) ??
-      walletConnectors.find((c) => c.name.toLowerCase().includes("metamask")) ??
-      walletConnectors.find((c) => c.id === "walletConnect") ??
-      walletConnectors[0] ??
-      null
-    );
+    return walletConnectors[0] ?? null;
   }, [connectors, isMiniAppHost, walletConnectors]);
 
   const updateLeaderboard = useCallback(() => {
@@ -282,7 +268,7 @@ export default function Home() {
 
   const handleConnectWallet = async (connector = preferredConnector) => {
     if (!connector) {
-      setError("Установи Rabby, MetaMask или используй WalletConnect.");
+      setError("Подключи Rabby, MetaMask, WalletConnect или Base (passkey).");
       return;
     }
 
@@ -369,7 +355,7 @@ export default function Home() {
               <p className={styles.warning}>
                 {isConnectPending
                   ? "Подключение..."
-                  : "Подключи Rabby, MetaMask или WalletConnect."}
+                  : "Подключи Rabby, MetaMask, WalletConnect или Base."}
               </p>
               <button
                 className={styles.neonButton}
@@ -398,7 +384,7 @@ export default function Home() {
                         onClick={() => void handleConnectWallet(connector)}
                         disabled={isConnectPending}
                       >
-                        {connector.name}
+                        {connectorLabel(connector)}
                       </button>
                     ))
                   )}

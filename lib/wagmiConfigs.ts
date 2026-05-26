@@ -1,7 +1,7 @@
 import { base } from "wagmi/chains";
 import { createConfig, createStorage, cookieStorage, http } from "wagmi";
 import { farcasterMiniApp } from "@farcaster/miniapp-wagmi-connector";
-import { injected, walletConnect } from "wagmi/connectors";
+import { baseAccount, injected, walletConnect } from "wagmi/connectors";
 import { APP_DISPLAY_NAME, WALLETCONNECT_PROJECT_ID } from "@/lib/appConfig";
 import { getSiteUrl } from "@/lib/siteUrl";
 
@@ -14,7 +14,7 @@ export const miniAppWagmiConfig = createConfig({
   transports: { [base.id]: http() },
 });
 
-/** Browser — MetaMask, Rabby, WalletConnect (modal). */
+/** Browser — Rabby, MetaMask, WalletConnect, Base smart wallet (passkey). */
 export const webWagmiConfig = createConfig({
   chains: [base],
   connectors: [
@@ -29,6 +29,9 @@ export const webWagmiConfig = createConfig({
         url: siteUrl,
         icons: [`${siteUrl}/anime-icon.svg`],
       },
+    }),
+    baseAccount({
+      appName: APP_DISPLAY_NAME,
     }),
   ],
   storage: createStorage({ storage: cookieStorage }),
