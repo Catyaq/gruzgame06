@@ -45,6 +45,7 @@ export default function RootLayout({
     <html lang="ru" suppressHydrationWarning>
       <head>
         <meta name="base:app_id" content={BASE_APP_ID} />
+        <meta name="talentapp:project_verification" content="dc7f81fb84dc200cc1e9d7cb1d92f75276aacdac09925408c6d70a11e9bc37d161fc85819b61f4d809357c477c39711dbdc0bbabf143771f5e99871c1bab71f8"/>
       </head>
       <body className={`${inter.variable} ${sourceCodePro.variable}`} suppressHydrationWarning>
         <Providers>
