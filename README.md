@@ -17,7 +17,7 @@ All onchain settings: `lib/contracts/gruzgame06Onchain.ts`
 
 **Wallets (browser):** Rabby, MetaMask, WalletConnect, Base passkey (`lib/wagmiConfigs.ts`).  
 **Base App:** auto-connect via `farcasterMiniApp` + `WalletAutoConnect.tsx`.
-
+ada
 ## Run
 
 ```bash
